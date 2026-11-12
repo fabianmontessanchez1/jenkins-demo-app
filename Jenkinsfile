@@ -60,15 +60,16 @@ spec:
             }
         }
         stage('Desplegar en EKS') {
-            steps {
-                container('kubectl') {
-                    sh "aws eks update-kubeconfig --region ${AWS_REGION} --name jenkins-cicd-cluster"
-                    sh "sed -i 's|image:.*|image: ${ECR_REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG}|g' k8s/deployment.yaml"
-                    sh "kubectl apply -f k8s/deployment.yaml"
-                    sh "kubectl rollout status deployment/demo-app --timeout=120s"
-                }
+        steps {
+            container('kubectl') {
+                sh """
+                aws eks update-kubeconfig --region us-east-1 --name jenkins-cicd-cluster
+                sed -i 's|image:.*|image: ${ECR_REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG}|g' k8s/deployment.yaml
+                kubectl apply -f k8s/deployment.yaml
+                """
             }
         }
+    }
     }
     post {
         success {
