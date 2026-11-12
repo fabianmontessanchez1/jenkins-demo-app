@@ -63,6 +63,12 @@ spec:
         steps {
             container('kubectl') {
                 sh """
+                # Descargar e instalar kubectl en el contenedor de AWS CLI
+                curl -sLO "https://dl.k8s.io/release/\$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+                chmod +x kubectl
+                mv kubectl /usr/local/bin/
+
+                # Configurar kubeconfig, actualizar imagen y desplegar
                 aws eks update-kubeconfig --region us-east-1 --name jenkins-cicd-cluster
                 sed -i 's|image:.*|image: ${ECR_REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG}|g' k8s/deployment.yaml
                 kubectl apply -f k8s/deployment.yaml
