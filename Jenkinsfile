@@ -50,13 +50,8 @@ spec:
             steps {
                 container('kaniko') {
                     sh """
-                    echo "--- CONTENIDO DEL DIRECTORIO ACTUAL ---"
-                    pwd
-                    ls -la
-                    ls -la ..
-                    
                     /kaniko/executor --context=dir://. \
-                        --dockerfile=Dockerfile \
+                        --dockerfile=Dockerfile.txt \
                         --destination=${ECR_REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG} \
                         --destination=${ECR_REGISTRY}/${IMAGE_NAME}:latest \
                         --no-push-cache
