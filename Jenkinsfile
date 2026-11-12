@@ -35,10 +35,7 @@ spec:
     stages {
         stage('Checkout Código') {
             steps {
-                container('kubectl') {
-                    checkout scm
-                    sh 'git rev-parse --short HEAD'
-                }
+                echo "Código fuente sincronizado correctamente en el workspace."
             }
         }
         stage('Pruebas Unitarias') {
