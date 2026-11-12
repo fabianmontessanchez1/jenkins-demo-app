@@ -51,7 +51,7 @@ spec:
                 container('kaniko') {
                     sh """
                     /kaniko/executor --context=dir://. \
-                        --dockerfile=Dockerfile.txt \
+                        --dockerfile=Dockerfile \
                         --destination=${ECR_REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG} \
                         --destination=${ECR_REGISTRY}/${IMAGE_NAME}:latest \
                         --no-push-cache
