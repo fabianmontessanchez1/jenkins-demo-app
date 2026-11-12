@@ -50,8 +50,8 @@ spec:
             steps {
                 container('kaniko') {
                     sh """
-                    /kaniko/executor --context=dir://. \
-                        --dockerfile=Dockerfile \
+                    /kaniko/executor --context=/home/jenkins/agent/workspace/deploymenEKSUno \
+                        --dockerfile=/home/jenkins/agent/workspace/deploymenEKSUno/Dockerfile \
                         --destination=${ECR_REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG} \
                         --destination=${ECR_REGISTRY}/${IMAGE_NAME}:latest \
                         --no-push-cache
